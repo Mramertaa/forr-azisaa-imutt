@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Peluk Aku</title>
+
+<style>
+body {
+  height: 100vh;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: #f1f1f1;
+  text-align: center;
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url("aku.jpg") no-repeat center / cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: slowZoom 30s ease-in-out infinite alternate;
+}
+
+/* background bernapas */
+@keyframes slowZoom {
+  from { background-size: 100%; }
+  to   { background-size: 105%; }
+}
+
+/* PARTIKEL ROMANTIS */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(rgba(255,255,255,0.25) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: float 60s linear infinite;
+  z-index: 1;
+}
+
+@keyframes float {
+  from { background-position: 0 0; }
+  to   { background-position: 0 100vh; }
+}
+
+/* CARD */
+.card {
+  background: rgba(0,0,0,0.45);
+  padding: 45px;
+  border-radius: 22px;
+  max-width: 620px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+h1 {
+  font-size: 2.3em;
+  margin-bottom: 20px;
+}
+
+/* TEKS MUNCUL HALUS */
+.line {
+  font-size: 1.15em;
+  line-height: 1.9;
+  margin: 10px 0;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: textFade 1.8s forwards;
+}
+
+@keyframes textFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button {
+  margin-top: 30px;
+  padding: 12px 32px;
+  font-size: 1.1em;
+  border: none;
+  border-radius: 30px;
+  background: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+}
+
+.hugBtn {
+  display: none;
+}
+
+.tap {
+  font-size: 0.9em;
+  opacity: 0.7;
+  margin-top: 15px;
+}
+
+/* ===== ENDING ===== */
+#ending {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 3s ease;
+  z-index: 999;
+}
+
+#ending.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* DETAK CINTA */
+.endingText {
+  font-size: 3em;
+  color: white;
+  letter-spacing: 4px;
+  animation: heartbeat 2.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  50%  { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1);   opacity: 0.9; }
+}
+</style>
+</head>
+
+<body onclick="aktifkanSuara()">
+
+<div class="particles"></div>
+
+<div class="card">
+  <h1>Hai Azisa Sayang 🤍</h1>
+  <div id="text"></div>
+
+  <button onclick="mulai()">Baca Pelan-Pelan nah sayangkuu</button>
+  <button class="hugBtn" id="hugBtn" onclick="peluk()">Peluk Aku</button>
+
+  <div class="tap">(sentuh layar sekali 🤍)</div>
+
+  <audio id="music" autoplay loop muted>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+</div>
+
+<div id="ending">
+  <div class="endingText">Peluk Aku🤍</div>
+</div>
+
+<script>
+const music = document.getElementById("music");
+const text = document.getElementById("text");
+const hugBtn = document.getElementById("hugBtn");
+const ending = document.getElementById("ending");
+const delay = 1800;
+
+function aktifkanSuara() {
+  if (music.muted) {
+    music.muted = false;
+    music.play();
+  }
+}
+
+const lines = [
+"Aku nulis ini tanpa tahu kamu bacanya kapan",
+"Mungkin pagi",
+"Mungkin malam",
+"Atau di waktu kamu lagi capek-capeknya",
+"",
+"Aku cuma mau kamu tahu satu hal",
+"Aku selalu ada",
+"",
+"Bukan cuma di hari kamu bahagia",
+"Tapi juga di hari kamu lelah",
+"",
+"Aku mencintaimu dengan cara yang tenang",
+"Tanpa banyak tuntutan",
+"Tanpa suara keras",
+"",
+"Makasih sudah bertahan sejauh ini dan masih sabar yah sayangg",
+"",
+"Aku cuma mau kamu tahu",
+"",
+"Aku cinta kamu",
+"Kadang aku diam",
+  "Kadang aku terlihat jauh",
+  "Padahal aku cuma lagi nyusun ulang nafasku",
+  "",
+  "Aku nggak sempurna",
+  "Aku sering gelisah",
+  "Tapi perasaanku ke kamu selalu pulang ke tempat yang sama",
+  "",
+  "Kalau kamu pernah ngerasa sendirian,",
+  "tolong ingat ini",
+  "Ada aku",
+  "",
+  "Yang mungkin nggak selalu bisa hadir secara nyata,",
+  "tapi selalu jujur mencintaimu",
+  "",
+  "Aku nggak butuh kamu jadi sempurna",
+  "Aku cuma mau kamu tetap di sini",
+  "",
+  "Dan kalau suatu hari aku terlihat lemah,",
+  "itu bukan karena aku menyerah",
+  "Itu karena aku percaya",
+  "",
+  "Aku percaya sama kamu",
+  "",
+  "Aku percaya cinta ini",
+  "",
+  "Aku percaya kita",
+  "",
+  "Mari berjuang terus bersama ,",
+  "aku akan tetap dan selalu ada selamanya,",
+  "jadi jangan pernah pergi tinggalin aku yah zisakuu sayaang",
+  "",
+  "Pelan-pelan",
+  "Bersama",
+  "LOVE YOU MORE ZISAKUU SAYAANGG🤍."
+];
+
+function mulai() {
+  text.innerHTML = "";
+  hugBtn.style.display = "none";
+
+  lines.forEach((line, i) => {
+    const p = document.createElement("div");
+    p.className = "line";
+    p.style.animationDelay = `${i * delay}ms`;
+    p.innerHTML = line || "&nbsp;";
+    text.appendChild(p);
+  });
+
+  setTimeout(() => {
+    hugBtn.style.display = "inline-block";
+  }, lines.length * delay);
+}
+
+function peluk() {
+  ending.classList.add("show");
+}
+</script>
+
+</body>
+</html>
